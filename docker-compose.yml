@@ -1,4 +1,4 @@
-name: quierounsms
+name: comprarsms
 
 # Desde esta carpeta:
 #   docker compose up --build
@@ -8,7 +8,7 @@ name: quierounsms
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: quierounsms-postgres
+    container_name: comprarsms-postgres
     environment:
       POSTGRES_USER: quierounsms
       POSTGRES_PASSWORD: quierounsms
@@ -26,7 +26,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: quierounsms-redis
+    container_name: comprarsms-redis
     ports:
       - "6379:6379"
     volumes:
@@ -41,7 +41,7 @@ services:
   backend:
     build:
       context: ../backend
-    container_name: quierounsms-backend
+    container_name: comprarsms-backend
     environment:
       DATABASE_URL: postgresql://quierounsms:quierounsms@postgres:5432/quierounsms?schema=public
       REDIS_URL: redis://redis:6379
@@ -74,7 +74,7 @@ services:
       args:
         NEXT_PUBLIC_API_URL: http://localhost:4000
         NEXT_PUBLIC_WS_URL: http://localhost:4000
-    container_name: quierounsms-frontend
+    container_name: comprarsms-frontend
     ports:
       - "3000:3000"
     depends_on:
